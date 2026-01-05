@@ -3,9 +3,11 @@ import type { ProjectWithRelations } from "@/app/types";
 
 type Props = {
     projects: ProjectWithRelations[];
+    showPendingOnly: boolean;
+    setShowPendingOnly: (value: boolean) => void;
 };
 
-export default function ProjectListAdmin({ projects }: Props) {
+export default function ProjectListAdmin({ projects, showPendingOnly, setShowPendingOnly }: Props) {
     const grouped: Record<string, ProjectWithRelations[]> = {};
 
     // Regroupement par catégorie Ada (ada_project)
@@ -24,6 +26,17 @@ export default function ProjectListAdmin({ projects }: Props) {
     return (
         <div className="bg-ada-bg min-h-screen py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                {/* ✅ Bouton centré au-dessus des projets */}
+                <div className="flex justify-center mb-12">
+                    <button
+                        onClick={() => setShowPendingOnly(!showPendingOnly)}
+                        className={`px-6 py-3 rounded font-semibold transition ${showPendingOnly ? "bg-gray-200 text-gray-800" : "bg-yellow-500 text-white"}`}
+                    >
+                        {showPendingOnly ? "Voir tous les projets" : "Voir uniquement les projets en attente"}
+                    </button>
+                </div>
+
                 {sortedCategories.map(([adaName, projectsList]) => (
                     <div key={adaName} className="mb-16">
                         <div className="flex items-center gap-4 mb-8">
