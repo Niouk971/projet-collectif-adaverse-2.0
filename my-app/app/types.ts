@@ -120,6 +120,7 @@ export type UserSessionData = {
   id: string;
   name: string;
   email: string;
+  image?: string | null;
 } | null;
 
 export type SelectChangeEvent = React.ChangeEvent<HTMLSelectElement>;
