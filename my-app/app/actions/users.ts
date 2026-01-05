@@ -1,15 +1,14 @@
 "use server"
 
 import { auth } from "@/app/lib/auth";
-import {  headers } from "next/headers";
+import { headers } from "next/headers";
 import { db } from "../lib/db/drizzle";
 import { eq } from "drizzle-orm/sql/expressions/conditions";
-import { revalidatePath } from "next/dist/server/web/spec-extension/revalidate";
-import { user } from "../lib/db/schema";
+import { revalidatePath } from "next/cache";
+import { user, account } from "../lib/db/schema";
 
 // Ban un user
 export async function banishUser(userId: string) {
-    // 1. Vérifier que l'utilisateur est connecté
     const session = await auth.api.getSession({
         headers: await headers()
     });
@@ -18,7 +17,6 @@ export async function banishUser(userId: string) {
         throw new Error("Vous devez être connecté");
     }
 
-    // 3. Vérifier l'id de l'utilisateur
     const userToBanish = await db.select()
         .from(user)
         .where(eq(user.id, userId))
@@ -28,18 +26,14 @@ export async function banishUser(userId: string) {
         throw new Error("Utilisateur introuvable");
     }
 
-    // 4. Mettre à jour le statut de l'utilisateur
     await db.update(user)
         .set({ isBanished: true })
         .where(eq(user.id, userId));
         
-        revalidatePath("/project/[slug]");
-    
-    
+    revalidatePath("/project/[slug]");
 }
 
-// app/actions/users.ts - Ajouter ces fonctions
-
+// Mettre à jour le profil utilisateur
 export async function updateUserProfile(formData: FormData) {
   const session = await auth.api.getSession({
     headers: await headers()
@@ -51,7 +45,31 @@ export async function updateUserProfile(formData: FormData) {
 
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
-  const newPassword = formData.get("password") as string;
+  const currentPassword = formData.get("currentPassword") as string;
+  const newPassword = formData.get("newPassword") as string;
+
+  // Si on veut changer le mot de passe
+  if (newPassword && newPassword.trim() !== "") {
+    if (!currentPassword) {
+      throw new Error("Le mot de passe actuel est requis");
+    }
+
+    try {
+      // ✅ Utiliser l'API Better-Auth pour changer le mot de passe
+      // Better-Auth vérifie automatiquement l'ancien mot de passe
+      await auth.api.changePassword({
+        body: {
+          newPassword: newPassword,
+          currentPassword: currentPassword,
+        },
+        headers: await headers(),
+      });
+    } catch (error: any) {
+      // Better-Auth retourne une erreur si le mot de passe actuel est incorrect
+      console.error("Erreur changement mot de passe:", error);
+      throw new Error("Mot de passe actuel incorrect");
+    }
+  }
 
   // Mise à jour du nom et email
   await db
@@ -63,16 +81,11 @@ export async function updateUserProfile(formData: FormData) {
     })
     .where(eq(user.id, session.user.id));
 
-  // Si un nouveau mot de passe est fourni
-  if (newPassword && newPassword.trim() !== "") {
-    // Better-Auth gère le hachage du mot de passe
-    // Tu devras utiliser l'API Better-Auth pour ça
-    // Voir leur documentation: https://www.better-auth.com/docs/concepts/password
-  }
-
   revalidatePath("/profile");
+  return { success: true };
 }
 
+// Mettre à jour l'image de profil
 export async function updateUserImage(imageUrl: string) {
   const session = await auth.api.getSession({
     headers: await headers()
@@ -91,4 +104,5 @@ export async function updateUserImage(imageUrl: string) {
     .where(eq(user.id, session.user.id));
 
   revalidatePath("/profile");
+  return { success: true };
 }
