@@ -41,9 +41,9 @@ export default function ProjectListAdmin({ projects, showPendingOnly, setShowPen
                     <div key={adaName} className="mb-16">
                         <div className="flex items-center gap-4 mb-8">
                             <h2 className="text-4xl">
-                                <span className="text-white font-oswald-light">Projets </span>
-                                <span className="text-ada-red font-oswald-medium">{adaName}</span>
-                                <span className="text-white ml-2 font-oswald-light text-2xl">
+                                <span className="text-white font-Oswald-light">Projets </span>
+                                <span className="text-ada-red font-Oswald-medium">{adaName}</span>
+                                <span className="text-white ml-2 font-Oswald-light text-2xl">
                                     ({projectsList.length})
                                 </span>
                             </h2>

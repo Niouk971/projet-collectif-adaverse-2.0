@@ -7,30 +7,30 @@ import { user } from "@/app/lib/db/schema";
 import { eq } from "drizzle-orm";
 
 export const signup = async (formData: FormData) => {
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+  const name = formData.get("name") as string;
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
 
-    if (!name) {
-        redirect("/?form=signup&error=name-missing");
-    }
+  if (!name) {
+    redirect("/?form=signup&error=name-missing");
+  }
 
-    if (!email) {
-        redirect("/?form=signup&error=email-missing");
-    }
+  if (!email) {
+    redirect("/?form=signup&error=email-missing");
+  }
 
-    if (!password) {
-        redirect("/?form=signup&error=password-missing");
-    }
+  if (!password) {
+    redirect("/?form=signup&error=password-missing");
+  }
 
-    const response = await auth.api.signUpEmail({
-        body: {
-            name,
-            email,
-            password,
-        },
-        asResponse: true,
-    });
+  const response = await auth.api.signUpEmail({
+    body: {
+      name,
+      email,
+      password,
+    },
+    asResponse: true,
+  });
 
     if (!response.ok) {
         const errorData = await response.json();
@@ -51,12 +51,12 @@ export const signup = async (formData: FormData) => {
         }
     }
 
-    redirect("/"); // on redirige vers la home page une fois connecté
+  redirect("/"); // on redirige vers la home page une fois connecté
 };
 
 export const signin = async (formData: FormData) => {
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
 
     if (!email) redirect("/?form=signin&error=email-missing");
     if (!password) redirect("/?form=signin&error=password-missing");
@@ -71,11 +71,11 @@ export const signin = async (formData: FormData) => {
         .where(eq(user.email, email))
         .limit(1);
 
-    // ✅ Si banni, refuser AVANT la connexion (avec le nom dans l'URL)
-    if (userData.length > 0 && userData[0].isBanished) {
-        const userName = encodeURIComponent(userData[0].name || "");
-        redirect(`/?form=signin&error=account-banned&user=${userName}`);
-    }
+  // ✅ Si banni, refuser AVANT la connexion (avec le nom dans l'URL)
+  if (userData.length > 0 && userData[0].isBanished) {
+    const userName = encodeURIComponent(userData[0].name || "");
+    redirect(`/?form=signin&error=account-banned&user=${userName}`);
+  }
 
     // ✅ ÉTAPE 2 : Connexion normale (vérifie aussi le mot de passe)
     const response = await auth.api.signInEmail({
@@ -83,18 +83,18 @@ export const signin = async (formData: FormData) => {
         asResponse: true,
     });
 
-    if (!response.ok) {
-        const errorData = await response.json();
-        console.log("ERREUR API :", errorData);
+  if (!response.ok) {
+    const errorData = await response.json();
+    console.log("ERREUR API :", errorData);
 
-        // ⚠️ IMPORTANT : Ne pas révéler si le compte est banni en cas d'erreur
-        if (errorData.code === "INVALID_EMAIL_OR_PASSWORD") {
-            redirect("/?form=signin&error=invalid-credentials"); 
-        } else {
-            console.error("Echec de la connexion:", errorData.message);
-            redirect("/?form=signin&error=generic");
-        }
+    // ⚠️ IMPORTANT : Ne pas révéler si le compte est banni en cas d'erreur
+    if (errorData.code === "INVALID_EMAIL_OR_PASSWORD") {
+      redirect("/?form=signin&error=invalid-credentials");
+    } else {
+      console.error("Echec de la connexion:", errorData.message);
+      redirect("/?form=signin&error=generic");
     }
+  }
 
     // 2️⃣ Récupérer l'utilisateur AVANT que la session soit créée
     const fullUser = await db.query.user.findFirst({
@@ -118,5 +118,5 @@ export const signin = async (formData: FormData) => {
 };
 
 export const signout = async () => {
-    await auth.api.signOut({ headers: await headers() }); // attention à bien passer les headers!
+  await auth.api.signOut({ headers: await headers() }); // attention à bien passer les headers!
 };
