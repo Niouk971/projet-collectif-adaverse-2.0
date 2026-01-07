@@ -1,2 +1,4 @@
 import { drizzle } from "drizzle-orm/neon-http";
-export const db = drizzle(process.env.DATABASE_URL!);
+import * as schema from "@/app/lib/db/schema";
+
+export const db = drizzle(process.env.DATABASE_URL!, { schema });

@@ -47,7 +47,7 @@ export default function FormModal(){
     <div>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-ada-red hover:bg-ada-coral text-white font-oswald-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all"
+        className="bg-ada-red hover:bg-ada-coral text-white font-Oswald-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all"
       >
         ✨ PROPOSER UN PROJET
       </button>

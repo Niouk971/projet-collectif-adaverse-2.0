@@ -1,17 +1,9 @@
 "use client";
 import Image from "next/image";
 import { deleteCommentAdmin } from "@/app/actions/comments";
+import { banishUser } from "@/app/actions/users";
+import type { Comment } from "@/app/types";
 
-type Comment = {
-  id: number;
-  message: string;
-  created_at: Date;
-  user: {
-    id: string;
-    name: string;
-    image: string | null;
-  } | null;
-};
 
 type Props = {
   comments: Comment[];
@@ -19,7 +11,7 @@ type Props = {
 };
 
 export default function ListAdmin({ comments, userId }: Props) {
-  // Fonction pour supprimer (admin)
+  // Fonction pour supprimer (coté admin)
   const handleDelete = async (commentId: number) => {
     if (confirm("Êtes-vous sûr de vouloir supprimer ce commentaire ?")) {
       try {
@@ -44,9 +36,9 @@ export default function ListAdmin({ comments, userId }: Props) {
 
   return (
     <div className="bg-white rounded-2xl shadow-xl p-8">
-      <h2 className="text-2xl font-oswald-bold text-ada-dark mb-6 flex items-center gap-2">
+      <h2 className="text-2xl font-Oswald-bold text-ada-dark mb-6 flex items-center gap-2">
         💬 Commentaires
-        <span className="text-lg font-oswald-regular text-gray-500">
+        <span className="text-lg font-Oswald-regular text-gray-500">
           ({comments.length})
         </span>
       </h2>
@@ -97,12 +89,17 @@ export default function ListAdmin({ comments, userId }: Props) {
               {comment.message}
             </p>
             <div className="ml-auto flex gap-4">
-              <button className="w-[140px] h-[50px] font-oswald-semibold flex-1 bg-ada-dark hover:bg-gray-800 text-white text-sm py-2 rounded-lg transition-all disabled:opacity-50">
-                🤬 Bannir
+              <button 
+              onClick={() => comment.user && banishUser(comment.user.id)}
+              disabled={comment.user?.isBanished}
+              className="w-[140px] h-[50px] font-Oswald-semibold flex-1 bg-ada-dark hover:bg-gray-800 text-white text-sm py-2 rounded-lg transition-all disabled:opacity-50 cursor-pointer">
+              {comment.user?.isBanished ? "🚫 Est banni" : "🤬 Bannir"}
               </button>
+              
+              
               <button
                 onClick={() => handleDelete(comment.id)}
-                className="w-[140px] h-[50px] font-oswald-semibold flex-1 bg-red-500 hover:bg-red-600 text-white text-sm py-2 rounded-lg transition-all disabled:opacity-50"
+                className="w-[140px] h-[50px] font-Oswald-semibold flex-1 bg-red-500 hover:bg-red-600 text-white text-sm py-2 rounded-lg transition-all disabled:opacity-50 cursor-pointer"
               >
                 🗑️ Supprimer
               </button>

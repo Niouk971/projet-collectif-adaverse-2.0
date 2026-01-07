@@ -12,21 +12,21 @@ export type ProjectWithRelations = {
   user_id: string | null;
   published_at: Date | null;
   created_at: Date;
-  
+
   // Relations (objets JSON)
   promotion: {
     id: number;
     name: string;
   } | null;
-  
+
   ada_project: {
     id: number;
     name: string;
   } | null;
-  
+
   // ✅ AJOUT : Nombre de commentaires
   comments_count: number;
-  
+
   // ✅ AJOUT : Tableau de commentaires
   comments: Array<{
     id: number;
@@ -36,6 +36,7 @@ export type ProjectWithRelations = {
       id: string;
       name: string;
       image: string | null;
+      isBanished: boolean;
     } | null;
   }>;
 };
@@ -65,18 +66,18 @@ export type ProjectDetail = {
   user_id: string | null;
   published_at: Date | null;
   created_at: Date;
-  
+
   // Relations
   promotion: {
     id: number;
     name: string;
   } | null;
-  
+
   ada_project: {
     id: number;
     name: string;
   } | null;
-  
+
   // Commentaires
   comments: Array<{
     id: number;
@@ -86,6 +87,7 @@ export type ProjectDetail = {
       id: string;
       name: string;
       image: string | null;
+      isBanished: boolean;  // ← Ajouter cette ligne
     } | null;
   }>;
 };
@@ -93,24 +95,24 @@ export type ProjectDetail = {
 //type session
 export type Session = {
   session: {
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        userId: string;
-        expiresAt: Date;
-        token: string;
-        ipAddress?: string | null | undefined;
-        userAgent?: string | null | undefined;
-    };
-    user: {
-        id: string;
-        createdAt: Date;
-        updatedAt: Date;
-        email: string;
-        emailVerified: boolean;
-        name: string;
-        image?: string | null | undefined;
-    };
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    userId: string;
+    expiresAt: Date;
+    token: string;
+    ipAddress?: string | null | undefined;
+    userAgent?: string | null | undefined;
+  };
+  user: {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    email: string;
+    emailVerified: boolean;
+    name: string;
+    image?: string | null | undefined;
+  };
 }
 
 // Type pour la session utilisateur simplifiée passée aux composants
@@ -118,4 +120,29 @@ export type UserSessionData = {
   id: string;
   name: string;
   email: string;
+  image?: string | null;
 } | null;
+
+export type SelectChangeEvent = React.ChangeEvent<HTMLSelectElement>;
+
+export type UserProfileCardProps = {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    image: string | null;
+  };
+};
+
+export type Comment = {
+  id: number;
+  message: string;
+  created_at: Date;
+  user: {
+    id: string;
+    name: string;
+    image: string | null;
+    isBanished: boolean;
+  } | null;
+};
+

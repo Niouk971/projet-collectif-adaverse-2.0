@@ -22,7 +22,7 @@ export default function Formulaire({ promos, adaProjects, setIsOpen }: Props) {
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Titre */}
-                <h2 className="text-3xl font-oswald-bold mb-6 text-center">
+                <h2 className="text-3xl font-Oswald-bold mb-6 text-center">
                     <span className="text-ada-dark">PROPOSER UN </span>
                     <span className="text-ada-red">PROJET ✨</span>
                 </h2>
@@ -36,20 +36,20 @@ export default function Formulaire({ promos, adaProjects, setIsOpen }: Props) {
                 >
                     {/* Input Nom */}
                     <div>
-                        <label className="block font-oswald-semibold text-ada-dark mb-2">
+                        <label className="block font-Oswald-semibold text-ada-dark mb-2">
                             Nom du projet
                         </label>
                         <input
                             name="name"
                             placeholder="Ex: Mon super quiz"
                             required
-                            className="font-oswald-regular w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-ada-red focus:ring-2 focus:ring-ada-red/20 transition-all"
+                            className="font-Oswald-regular w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-ada-red focus:ring-2 focus:ring-ada-red/20 transition-all"
                         />
                     </div>
 
                     {/* Input GitHub */}
                     <div>
-                        <label className="block font-oswald-semibold text-ada-dark mb-2">
+                        <label className="block font-Oswald-semibold text-ada-dark mb-2">
                             URL GitHub
                         </label>
                         <input
@@ -57,13 +57,13 @@ export default function Formulaire({ promos, adaProjects, setIsOpen }: Props) {
                             placeholder="https://github.com/..."
                             required
                             type="url"
-                            className="font-oswald-regular w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-ada-red focus:ring-2 focus:ring-ada-red/20 transition-all"
+                            className="font-Oswald-regular w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-ada-red focus:ring-2 focus:ring-ada-red/20 transition-all"
                         />
                     </div>
 
                     {/* Input Demo */}
                     <div>
-                        <label className="block font-oswald-semibold text-ada-dark mb-2">
+                        <label className="block font-Oswald-semibold text-ada-dark mb-2">
                             URL de la démo
                         </label>
                         <input
@@ -71,18 +71,17 @@ export default function Formulaire({ promos, adaProjects, setIsOpen }: Props) {
                             placeholder="https://..."
                             required
                             type="url"
-                            className="font-oswald-regular w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-ada-red focus:ring-2 focus:ring-ada-red/20 transition-all"
+                            className="font-Oswald-regular w-full border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-ada-red focus:ring-2 focus:ring-ada-red/20 transition-all"
                         />
                     </div>
 
                     <SelectPromo promos={promos} />
                     <SelectAdaProject adaProjects={adaProjects} />
 
-
                     {/* Boutons */}
                       <button
                         type="submit"
-                        className="w-full bg-ada-red hover:bg-ada-coral text-white font-black py-4 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all mt-6 font-oswald-bold text-2xl"
+                        className="w-full bg-ada-red hover:bg-ada-coral text-white font-black py-4 rounded-lg shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all mt-6 font-Oswald-bold text-2xl"
                     >
                         ENVOYER 🚀
                     </button>

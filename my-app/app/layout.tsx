@@ -7,6 +7,8 @@ import NavSelect from "./components/NavSelect";
 import { getFavoritesCount } from "@/app/actions/favorite";
 
 import UserSession from "./components/connection/UserSession";
+import NavSelect from "./components/NavSelect";
+import AdminNavButton from "./components/admin/AdminNavButton";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -23,12 +25,11 @@ export default async function RootLayout({
  const session = rawSession?.user
   ? { id: rawSession.user.id, name: rawSession.user.name, email: rawSession.user.email }
   : null;
-const favoritesCount = await getFavoritesCount();
+
   return (
     <html lang="en">
       <body>
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-          {/* Logo/Titre style Ada */}
           <h1 className="text-5xl font-futura mr-auto">
             <a href="/">
               <span className="text-ada-dark font-bold">ada</span>
