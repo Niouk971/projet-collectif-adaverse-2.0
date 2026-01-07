@@ -120,6 +120,29 @@ export type UserSessionData = {
   id: string;
   name: string;
   email: string;
+  image?: string | null;
 } | null;
 
 export type SelectChangeEvent = React.ChangeEvent<HTMLSelectElement>;
+
+export type UserProfileCardProps = {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    image: string | null;
+  };
+};
+
+export type Comment = {
+  id: number;
+  message: string;
+  created_at: Date;
+  user: {
+    id: string;
+    name: string;
+    image: string | null;
+    isBanished: boolean;
+  } | null;
+};
+

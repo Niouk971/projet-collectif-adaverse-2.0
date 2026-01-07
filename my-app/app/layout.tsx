@@ -20,7 +20,12 @@ export default async function RootLayout({
 
   const rawSession = await auth.api.getSession({ headers: await headers() });
   const session = rawSession?.user
-    ? { id: rawSession.user.id, name: rawSession.user.name, email: rawSession.user.email }
+    ? {
+      id: rawSession.user.id,
+      name: rawSession.user.name,
+      email: rawSession.user.email,
+      image: rawSession.user.image // ← AJOUT
+    }
     : null;
 
   // 🔥 Promotions chargées côté serveur (SSR)
@@ -30,8 +35,7 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-
-          {/* Logo */}
+          {/* Logo/Titre style Ada */}
           <h1 className="text-5xl font-futura mr-auto">
             <a href="/">
               <span className="text-ada-dark font-bold">ada</span>

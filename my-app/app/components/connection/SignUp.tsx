@@ -3,16 +3,17 @@ import { signup } from "@/app/actions/connect";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import React from "react";
+
 export default function SignUp() {
   const [isOpen, setIsOpen] = useState(false);
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
-  const form = searchParams.get("form")
-    React.useEffect(() => {
-      if (error && form === "signup") {
-        setIsOpen(true);
-      }
-    }, [error, form]);
+  const form = searchParams.get("form");
+  React.useEffect(() => {
+    if (error && form === "signup") {
+      setIsOpen(true);
+    }
+  }, [error, form]);
   return (
     <>
       <button
@@ -36,7 +37,9 @@ export default function SignUp() {
               ×
             </button>
 
-            <h2 className="text-2xl font-Oswald-bold text-ada-red mb-6">Inscription</h2>
+            <h2 className="text-2xl font-Oswald-bold text-ada-red mb-6">
+              Inscription
+            </h2>
 
             {error === "email-missing" && (
               <div className="mb-4 p-3 bg-red-100 border-2 border-ada-red text-ada-red rounded-lg text-sm font-bold">
@@ -50,10 +53,10 @@ export default function SignUp() {
             )}
             {error === "PASSWORD_TOO_SHORT" && (
               <div className="mb-4 p-3 bg-red-100 border-2 border-ada-red text-ada-red rounded-lg text-sm font-bold">
-               Mot de passe trop court.
+                Mot de passe trop court.
               </div>
             )}
-            {error ==="USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL" && (
+            {error === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL" && (
               <div className="mb-4 p-3 bg-red-100 border-2 border-ada-red text-ada-red rounded-lg text-sm font-bold">
                 Cet utilisateur existe deja. Utilisez un autre Email.
               </div>
@@ -80,7 +83,9 @@ export default function SignUp() {
               required
             />
 
-            <label className="block font-Oswald-regular mb-2">Mot de passe</label>
+            <label className="block font-Oswald-regular mb-2">
+              Mot de passe
+            </label>
             <input
               type="password"
               name="password"

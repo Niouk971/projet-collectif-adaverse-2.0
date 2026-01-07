@@ -3,17 +3,8 @@ import { addComment } from "@/app/actions/comments";
 import Image from "next/image";
 import { useState } from "react";
 import { deleteComment, updateComment } from "@/app/actions/comments";
+import type { Comment } from "@/app/types";
 
-type Comment = {
-  id: number;
-  message: string;
-  created_at: Date;
-  user: {
-    id: string;
-    name: string;
-    image: string | null;
-  } | null;
-};
 
 type Props = {
   comments: Comment[];

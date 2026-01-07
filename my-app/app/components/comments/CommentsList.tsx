@@ -1,16 +1,6 @@
 "use client";
 import Image from "next/image";
-
-type Comment = {
-  id: number;
-  message: string;
-  created_at: Date;
-  user: {
-    id: string;
-    name: string;
-    image: string | null;
-  } | null;
-};
+import type { Comment } from "@/app/types";
 
 type Props = {
   comments: Comment[];

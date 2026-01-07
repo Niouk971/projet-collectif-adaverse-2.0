@@ -200,3 +200,65 @@ export async function getPromotions() {
 export async function getAdaProjects() {
     return await db.select().from(adaTable);
 }
+
+// ajouté pour récupérer les projets d'un utilisateur spécifique
+
+export async function getUserProjects(userId: string): Promise<ProjectWithRelations[]> {
+  try {
+    const result = await db.execute(
+      sql`
+        SELECT 
+          p.*,
+          
+          -- Infos promotion
+          json_build_object(
+            'id', prom.id,
+            'name', prom.name
+          ) as promotion,
+          
+          -- Infos ada_project
+          json_build_object(
+            'id', ada.id,
+            'name', ada.name
+          ) as ada_project,
+          
+          -- ✅ Nombre de commentaires
+          COUNT(c.id) as comments_count,
+          
+          -- ✅ Commentaires groupés
+          COALESCE(
+            json_agg(
+              json_build_object(
+                'id', c.id,
+                'message', c.message,
+                'created_at', c.created_at,
+                'user', json_build_object(
+                  'id', u.id,
+                  'name', u.name,
+                  'image', u.image
+                )
+              )
+              ORDER BY c.created_at DESC
+            ) FILTER (WHERE c.id IS NOT NULL),
+            '[]'::json
+          ) as comments
+          
+        FROM students_projects p
+        LEFT JOIN promotions prom ON prom.id = p.promotion_id
+        LEFT JOIN ada_projects ada ON ada.id = p.ada_project_id
+        LEFT JOIN comments c ON c.project_id = p.id
+        LEFT JOIN "user" u ON u.id = c.user_id
+        
+        WHERE p.user_id = ${userId}
+        
+        GROUP BY p.id, prom.id, prom.name, ada.id, ada.name
+        ORDER BY p.published_at DESC NULLS LAST
+      `
+    );
+
+    return result.rows as ProjectWithRelations[];
+  } catch (error) {
+    console.error("Erreur lors de la récupération des projets:", error);
+    return [];
+  }
+}

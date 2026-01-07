@@ -11,16 +11,8 @@ export const signup = async (formData: FormData) => {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  if (!name) {
+  if (!name || !email || !password) {
     redirect("/?form=signup&error=name-missing");
-  }
-
-  if (!email) {
-    redirect("/?form=signup&error=email-missing");
-  }
-
-  if (!password) {
-    redirect("/?form=signup&error=password-missing");
   }
 
   const response = await auth.api.signUpEmail({
