@@ -4,10 +4,10 @@ import { auth } from "./lib/auth";
 import { headers } from "next/headers";
 import FormModal from "./components/Formulaire/FormModal";
 import NavSelect from "./components/NavSelect";
-import SignIn from "./components/connection/SignIn";
-import SignOutButton from "./components/connection/SignOutButton";
-import SignUp from "./components/connection/SignUp";
+import { getFavoritesCount } from "@/app/actions/favorite";
+
 import UserSession from "./components/connection/UserSession";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Adaverse",
@@ -23,7 +23,7 @@ export default async function RootLayout({
  const session = rawSession?.user
   ? { id: rawSession.user.id, name: rawSession.user.name, email: rawSession.user.email }
   : null;
-
+const favoritesCount = await getFavoritesCount();
   return (
     <html lang="en">
       <body>
@@ -38,7 +38,14 @@ export default async function RootLayout({
 
           <UserSession session={session}/>
           <NavSelect />
-          
+        <Link href="/favorites" className="relative font-semibold text-ada-red">
+  Favoris
+  {favoritesCount > 0 && (
+    <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full px-2">
+      {favoritesCount}
+    </span>
+  )}
+</Link>
         </nav>
 
         {children}
