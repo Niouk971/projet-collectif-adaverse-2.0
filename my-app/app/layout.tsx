@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { auth } from "./lib/auth";
 import { headers } from "next/headers";
-import { getFavoritesCount } from "@/app/actions/favorite";
 import UserSession from "./components/connection/UserSession";
 import NavSelect from "./components/NavSelect";
 import AdminNavButton from "./components/admin/AdminNavButton";
@@ -37,13 +36,9 @@ export default async function RootLayout({
           <UserSession session={session}/>
           <NavSelect />
           <AdminNavButton/>
-        <Link href="/favorites" className="relative font-semibold text-ada-red">
+        <Link href="/favorites" className="relative font-semibold text-ada-red px-4 py-2 bg-black/90  hover:bg-gray-800 transition">
   Favoris
-  {getFavoritesCount > 0 && (
-    <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full px-2">
-      {getFavoritesCount}
-    </span>
-  )}
+
 </Link>
         </nav>
 
