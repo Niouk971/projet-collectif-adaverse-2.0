@@ -24,7 +24,7 @@ export default async function ProfilePage() {
     <div className="min-h-screen bg-[#121212] text-white p-8">
       <div className="max-w-6xl mx-auto">
         {/* Header Profil avec édition */}
-        <UserProfileCard user={user} />
+        <UserProfileCard user={{ ...user, image: user.image ?? null }} />
 
         {/* Liste des Projets */}
         <section>

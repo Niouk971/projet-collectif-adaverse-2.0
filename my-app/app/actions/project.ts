@@ -201,7 +201,7 @@ export async function getAdaProjects() {
     return await db.select().from(adaTable);
 }
 
-// app/actions/project.ts
+// ajouté pour récupérer les projets d'un utilisateur spécifique
 
 export async function getUserProjects(userId: string): Promise<ProjectWithRelations[]> {
   try {

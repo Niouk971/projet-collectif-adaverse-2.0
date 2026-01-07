@@ -1,18 +1,10 @@
-// app/components/profile/UserProfileCard.tsx
 "use client";
 
 import { useState, useRef } from "react";
 import { Camera, Loader2 } from "lucide-react";
 import { updateUserProfile, updateUserImage } from "@/app/actions/users";
+import type { UserProfileCardProps } from "@/app/types";
 
-type UserProfileCardProps = {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    image: string | null;
-  };
-};
 
 export default function UserProfileCard({ user }: UserProfileCardProps) {
   const [isEditing, setIsEditing] = useState(false);
@@ -114,7 +106,7 @@ export default function UserProfileCard({ user }: UserProfileCardProps) {
         <img 
           src={imagePreview || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&size=96&background=DC2626&color=fff`}
           alt={user.name} 
-          className="w-24 h-24 rounded-full border-2 border-red-500 object-cover"
+          className="w-20 h-20 rounded-full border-2 border-red-500 object-cover"
         />
         <button 
           type="button"

@@ -124,3 +124,12 @@ export type UserSessionData = {
 } | null;
 
 export type SelectChangeEvent = React.ChangeEvent<HTMLSelectElement>;
+
+export type UserProfileCardProps = {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    image: string | null;
+  };
+};
