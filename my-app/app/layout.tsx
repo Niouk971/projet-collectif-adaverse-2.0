@@ -2,10 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { auth } from "./lib/auth";
 import { headers } from "next/headers";
-import FormModal from "./components/Formulaire/FormModal";
-import NavSelect from "./components/NavSelect";
 import { getFavoritesCount } from "@/app/actions/favorite";
-
 import UserSession from "./components/connection/UserSession";
 import NavSelect from "./components/NavSelect";
 import AdminNavButton from "./components/admin/AdminNavButton";
@@ -39,11 +36,12 @@ export default async function RootLayout({
 
           <UserSession session={session}/>
           <NavSelect />
+          <AdminNavButton/>
         <Link href="/favorites" className="relative font-semibold text-ada-red">
   Favoris
-  {favoritesCount > 0 && (
+  {getFavoritesCount > 0 && (
     <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full px-2">
-      {favoritesCount}
+      {getFavoritesCount}
     </span>
   )}
 </Link>
