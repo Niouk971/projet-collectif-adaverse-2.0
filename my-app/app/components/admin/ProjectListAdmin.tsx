@@ -1,5 +1,8 @@
+"use client";
+
 import ProjectCardAdmin from "./ProjectCardAdmin";
 import type { ProjectWithRelations } from "@/app/types";
+import { useSearchParams } from "next/navigation";
 
 type Props = {
     projects: ProjectWithRelations[];
@@ -8,16 +11,30 @@ type Props = {
 };
 
 export default function ProjectListAdmin({ projects, showPendingOnly, setShowPendingOnly }: Props) {
+    const searchParams = useSearchParams();
+    const promoFilter = searchParams.get("promo");
+
+    // 1️⃣ Filtre par promotion
+    const promoFiltered = promoFilter
+        ? projects.filter((p) => String(p.promotion_id) === promoFilter)
+        : projects;
+
+    // 2️⃣ Filtre "en attente" si activé
+    const finalFiltered = showPendingOnly
+        ? promoFiltered.filter((p) => !p.published_at)
+        : promoFiltered;
+
+    // 3️⃣ Regroupement par catégorie Ada
     const grouped: Record<string, ProjectWithRelations[]> = {};
 
-    // Regroupement par catégorie Ada (ada_project)
-    for (let item of projects) {
+    for (let item of finalFiltered) {
         const adaName = item.ada_project?.name || "Sans catégorie";
         if (!grouped[adaName]) {
             grouped[adaName] = [];
         }
         grouped[adaName].push(item);
     }
+
 
     const sortedCategories = Object.entries(grouped).sort((a, b) =>
         a[0].localeCompare(b[0])
@@ -27,14 +44,25 @@ export default function ProjectListAdmin({ projects, showPendingOnly, setShowPen
         <div className="bg-ada-bg min-h-screen py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                {/* ✅ Bouton centré au-dessus des projets */}
                 <div className="flex justify-center mb-12">
-                    <button
-                        onClick={() => setShowPendingOnly(!showPendingOnly)}
-                        className={`px-6 py-3 rounded font-semibold transition ${showPendingOnly ? "bg-gray-200 text-gray-800" : "bg-yellow-500 text-white"}`}
+                    <select
+                        value={showPendingOnly ? "pending" : "all"}
+                        onChange={(e) => setShowPendingOnly(e.target.value === "pending")}
+                        className="
+                            font-Oswald-semibold
+                            px-6 py-3 rounded-lg font-semibold 
+                            bg-white text-gray-800 
+                            border-2 border-gray-300 
+                            shadow-md 
+                            hover:border-ada-red 
+                            focus:border-ada-red focus:ring-2 focus:ring-ada-red/30 
+                            transition-all
+                            cursor-pointer
+                        "
                     >
-                        {showPendingOnly ? "Voir tous les projets" : "Voir uniquement les projets en attente"}
-                    </button>
+                        <option value="all" className="font-Oswald-regular">Tous les projets</option>
+                        <option value="pending" className="font-Oswald-regular">Projets en attente</option>
+                    </select>
                 </div>
 
                 {sortedCategories.map(([adaName, projectsList]) => (
