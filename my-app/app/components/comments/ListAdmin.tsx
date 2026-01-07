@@ -2,18 +2,8 @@
 import Image from "next/image";
 import { deleteCommentAdmin } from "@/app/actions/comments";
 import { banishUser } from "@/app/actions/users";
+import type { Comment } from "@/app/types";
 
-type Comment = {
-  id: number;
-  message: string;
-  created_at: Date;
-  user: {
-    id: string;
-    name: string;
-    image: string | null;
-    isBanished: boolean;
-  } | null;
-};
 
 type Props = {
   comments: Comment[];

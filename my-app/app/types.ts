@@ -133,3 +133,16 @@ export type UserProfileCardProps = {
     image: string | null;
   };
 };
+
+export type Comment = {
+  id: number;
+  message: string;
+  created_at: Date;
+  user: {
+    id: string;
+    name: string;
+    image: string | null;
+    isBanished: boolean;
+  } | null;
+};
+
