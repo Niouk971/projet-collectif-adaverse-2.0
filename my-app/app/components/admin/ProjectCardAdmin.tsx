@@ -42,6 +42,14 @@ export default function ProjectCardAdmin({ projectId, project }: Props) {
         }
       `}
     >
+      {/* Badge promotion (comme sur la page d'accueil) */}
+      <div className="absolute top-3 right-3 z-10">
+        <span className="inline-block bg-ada-red text-white text-xs font-bold px-3 py-1.5 rounded shadow-lg">
+          {project.promotion?.name || "?"}
+        </span>
+      </div>
+
+      {/* Badge "En attente" */}
       {!isPublished && (
         <div className="absolute top-3 left-3 z-10">
           <span className="inline-block bg-yellow-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg animate-pulse">
@@ -61,19 +69,26 @@ export default function ProjectCardAdmin({ projectId, project }: Props) {
           {p.name}
         </h3>
 
+        {/* Date au format "day month year" */}
         <p className="text-sm text-gray-500 flex items-center gap-2">
           <span>📅</span>
           {isPublished
-            ? new Date(p.published_at!).toLocaleDateString("fr-FR")
+            ? new Date(p.published_at!).toLocaleDateString("fr-FR", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })
             : "En attente de publication"}
         </p>
-             {/* ✅ AJOUT : Nombre de commentaires */}
+
+        {/* Nombre de commentaires */}
         <p className="text-sm text-gray-500 flex items-center gap-2 mt-2">
           <span>💬</span>
           {project.comments_count}{" "}
           {project.comments_count > 1 ? "commentaires" : "commentaire"}
         </p>
 
+        {/* Boutons admin */}
         {!isPublished && (
           <div
             className="flex gap-2 mt-4"
@@ -96,7 +111,6 @@ export default function ProjectCardAdmin({ projectId, project }: Props) {
             </button>
           </div>
         )}
-      
 
         {isPublished && (
           <div className="mt-4 text-green-600 font-semibold text-sm">
