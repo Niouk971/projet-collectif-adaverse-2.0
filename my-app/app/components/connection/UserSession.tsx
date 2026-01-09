@@ -17,7 +17,7 @@ export default function UserSession({ session }: { session: UserSessionData }) {
   }
   return (
     <div className="flex items-center gap-2">
-      <div className=" flex items-center gap-2 border border-ada-red px-3 py-1 rounded-full text-ada-red font-oswald-medium">
+      <div className=" flex items-center gap-2 border border-ada-red px-3 py-1 rounded-full text-ada-red font-Oswald-medium">
         <CircleUserRound className="w-6 h-6 text-ada-red" />
         <span>{session.name}</span>
       </div>

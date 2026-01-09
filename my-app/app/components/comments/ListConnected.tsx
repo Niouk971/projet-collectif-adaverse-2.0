@@ -65,9 +65,9 @@ export default function ListConnected({ comments, userId, projectId }: Props) {
 
   return (
     <div className="bg-white rounded-2xl shadow-xl p-8">
-      <h2 className="text-2xl font-oswald-bold text-ada-dark mb-6 flex items-center gap-2">
+      <h2 className="text-2xl font-Oswald-bold text-ada-dark mb-6 flex items-center gap-2">
         💬 Commentaires
-        <span className="text-lg font-oswald-regular text-gray-500">
+        <span className="text-lg font-Oswald-regular text-gray-500">
           ({comments.length})
         </span>
       </h2>
@@ -185,7 +185,7 @@ export default function ListConnected({ comments, userId, projectId }: Props) {
             
             <input type="hidden" name= "userId" value={userId}/>
             <input type="hidden" name="projectId"   value={projectId}/>
-            <button type="submit" className=" w-1/10 h-[50px] font-oswald-semibold flex-1 bg-green-500 hover:bg-green-600 text-white text-sm py-2 rounded-lg transition-all">
+            <button type="submit" className=" w-1/10 h-[50px] font-Oswald-semibold flex-1 bg-green-500 hover:bg-green-600 text-white text-sm py-2 rounded-lg transition-all">
               ✍️ PUBLIER
             </button>
           </form>

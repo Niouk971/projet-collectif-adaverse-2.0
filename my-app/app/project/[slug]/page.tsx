@@ -72,9 +72,9 @@ export default async function ProjectPage({
 
           {/* Infos avec le nom du projet comme titre */}
           <div className="bg-white flex flex-col rounded-2xl shadow-xl p-8 mb-15">
-            <h3 className="text-4xl flex flex-wrap font-oswald-regular justify-center text-ada-dark mb-6">
+            <h3 className="text-4xl flex flex-wrap font-Oswald-regular justify-center text-ada-dark mb-6">
               Nom du projet :{" "}
-              <span className="text-4xl font-oswald-bold ml-2">
+              <span className="text-4xl font-Oswald-bold ml-2">
                 {project.name}
               </span>
             </h3>

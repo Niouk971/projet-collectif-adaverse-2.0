@@ -8,6 +8,7 @@ import SignIn from "./components/connection/SignIn";
 import SignOutButton from "./components/connection/SignOutButton";
 import SignUp from "./components/connection/SignUp";
 import UserSession from "./components/connection/UserSession";
+import AdminNavButton from "./components/admin/AdminNavButton";
 
 export const metadata: Metadata = {
   title: "Adaverse",
@@ -38,6 +39,7 @@ export default async function RootLayout({
 
           <UserSession session={session}/>
           <NavSelect />
+          <AdminNavButton />
           
         </nav>
 

@@ -20,11 +20,11 @@ export default function NavSelect ({}) {
             {/* Filtre promo */}
             <select
               onChange={handleChange}
-              className="font-oswald-semibold border-2 border-gray-300 rounded-lg px-4 py-2.5 bg-white text-ada-dark focus:outline-none focus:border-ada-red focus:ring-2 focus:ring-ada-red/20 transition-all cursor-pointer"
+              className="font-Oswald-semibold border-2 border-gray-300 rounded-lg px-4 py-2.5 bg-white text-ada-dark focus:outline-none focus:border-ada-red focus:ring-2 focus:ring-ada-red/20 transition-all cursor-pointer"
             >
-              <option className="font-oswald-semibold" value="">TOUTES LES PROMOS ⭐</option>
+              <option className="font-Oswald-semibold" value="">TOUTES LES PROMOS ⭐</option>
               {promos.map((promo) => (
-                <option className="font-oswald-regular" key={promo.id} value={promo.id}>
+                <option className="font-Oswald-regular" key={promo.id} value={promo.id}>
                   {promo.name}
                 </option>
               ))}
