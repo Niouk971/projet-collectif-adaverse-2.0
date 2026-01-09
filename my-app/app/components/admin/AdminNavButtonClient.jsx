@@ -10,7 +10,7 @@ export default function AdminNavButtonClient() {
   return (
     <Link
       href={isAdminPage ? "/" : "/admin"}
-      className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition"
+      className="px-4 py-2 bg-black text-white font-semibold rounded-md hover:bg-gray-800 transition"
     >
       {isAdminPage ? "Accueil" : "Admin"}
     </Link>
