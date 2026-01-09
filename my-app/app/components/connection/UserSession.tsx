@@ -3,7 +3,7 @@ import SignIn from "./SignIn";
 import SignOutButton from "./SignOutButton";
 import SignUp from "./SignUp";
 import { CircleUserRound } from "lucide-react";
-import FormModal from "../Formulaire/FormModal";
+import FormModal from "../formulaire/FormModal";
 import { UserSessionData } from "@/app/types";
 
 export default function UserSession({ session }: { session: UserSessionData }) {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import FormModal from "../Formulaire/FormModal";
+import FormModal from "../formulaire/FormModal";
 import ProjectListAdmin from "./ProjectListAdmin";
 import type { ProjectWithRelations, Promotion } from "@/app/types";
 

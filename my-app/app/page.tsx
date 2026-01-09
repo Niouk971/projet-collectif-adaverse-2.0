@@ -1,4 +1,4 @@
-import { getAllProjects, getPromotions } from "./actions/project";
+import { getAllProjects } from "./actions/project";
 import FilterData from "./components/FilterData";
 import { ProjectWithRelations } from "./types"; // Add this import
 

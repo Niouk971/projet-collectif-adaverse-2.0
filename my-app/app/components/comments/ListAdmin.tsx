@@ -20,7 +20,8 @@ type Props = {
   userId: string;
 };
 
-export default function ListAdmin({ comments, userId }: Props) {
+export default function ListAdmin({ comments
+ }: Props) {
   // Fonction pour supprimer (coté admin)
   const handleDelete = async (commentId: number) => {
     if (confirm("Êtes-vous sûr de vouloir supprimer ce commentaire ?")) {

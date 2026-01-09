@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { auth } from "./lib/auth";
 import { headers } from "next/headers";
-import FormModal from "./components/Formulaire/FormModal";
+import FormModal from "./components/formulaire/FormModal";
 import NavSelect from "./components/NavSelect";
 import SignIn from "./components/connection/SignIn";
 import SignOutButton from "./components/connection/SignOutButton";

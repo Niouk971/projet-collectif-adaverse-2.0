@@ -179,6 +179,7 @@ export default function ListConnected({ comments, userId, projectId }: Props) {
               type="text"
               placeholder="Ajouter un commentaire"
               name="comment"
+              required
               className="font-oswald-regular w-8/10 border-2 border-gray-200 rounded-lg px-4 py-3 focus:outline-none focus:border-ada-red focus:ring-2 focus:ring-ada-red/20 transition-all"
             />
             

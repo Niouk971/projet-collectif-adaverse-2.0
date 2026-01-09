@@ -1,7 +1,7 @@
 "use client";
 
 import ProjectList from "./ProjectList";
-import type { ProjectWithRelations, Promotion, Session } from "@/app/types";
+import type { ProjectWithRelations } from "@/app/types";
 import { useSearchParams } from "next/navigation";
 
 type Props = {
