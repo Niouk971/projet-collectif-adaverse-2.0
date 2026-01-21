@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { getFavorites } from "@/app/actions/favorite";
 import { getSession } from "@/app/actions/session";
 import ProjectCard from "../components/ProjectCards";
@@ -13,7 +15,7 @@ export default async function FavoritesPage() {
   const favorites = await getFavorites();
 
   if (favorites.length === 0) {
-    return <p>Vous n’avez encore aucun favori.</p>;
+    return <p>Vous n'avez encore aucun favori.</p>;
   }
 
   return (
